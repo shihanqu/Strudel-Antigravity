@@ -32,7 +32,60 @@ console.defaultLog = console.log.bind(console);
 console.logs = [];
 
 webaudio.initAudioOnFirstClick();
-core.evalScope({ ...core.controls, loadOrc, loadCsound }, core, mini, webaudio, tonal);
+
+const sliders = new Map();
+
+function sliderWithID(id, value, min = 0, max = 1, step = 0.01) {
+  let slider = sliders.get(id);
+  if (!slider) {
+    const container = document.getElementById('sliders');
+    if (!container) return () => value;
+
+    const wrapper = document.createElement('div');
+    wrapper.className = 'slider-wrapper';
+
+    // Attempt to guess label from id (slider_123 -> Slider 1)
+    const label = document.createElement('label');
+    // Use the ID for stability and uniqueness, removing the prefix for brevity
+    label.innerText = id.replace('slider_', 'Slider ');
+
+    const input = document.createElement('input');
+    input.type = 'range';
+    input.min = String(min);
+    input.max = String(max);
+    input.step = String(step);
+    input.value = String(value);
+
+    const valueDisplay = document.createElement('span');
+    valueDisplay.className = 'slider-value';
+    valueDisplay.innerText = Number(value).toFixed(2);
+
+    input.addEventListener('input', (e) => {
+      valueDisplay.innerText = Number(e.target.value).toFixed(2);
+      slider.value = Number(e.target.value);
+    });
+
+    wrapper.appendChild(label);
+    wrapper.appendChild(input);
+    wrapper.appendChild(valueDisplay);
+    container.appendChild(wrapper);
+
+    slider = { wrapper, input, value: Number(value), used: true };
+    sliders.set(id, slider);
+  } else {
+    slider.used = true;
+    // Update constraints if code changed them, but prefer user value if feasible?
+    // For now, let's update min/max/step but keep value unless it's out of bounds
+    // actually, let's trust the user interaction over code defaults for value.
+    if (slider.input.min !== String(min)) slider.input.min = String(min);
+    if (slider.input.max !== String(max)) slider.input.max = String(max);
+    if (slider.input.step !== String(step)) slider.input.step = String(step);
+  }
+
+  return () => slider.value;
+}
+
+core.evalScope({ ...core.controls, loadOrc, loadCsound, sliderWithID }, core, mini, webaudio, tonal);
 
 // Add stubs to Pattern prototype to prevent errors from web-specific methods
 // Note: 'csound' is now handled natively by the import above
@@ -270,7 +323,18 @@ async function play() {
   }
 
   try {
+    // Reset used flag for all sliders
+    sliders.forEach(s => s.used = false);
+
     repl.evaluate(tune);
+
+    // Remove unused sliders
+    for (const [id, slider] of sliders.entries()) {
+      if (!slider.used) {
+        slider.wrapper.remove();
+        sliders.delete(id);
+      }
+    }
 
     domInfoText.style.display = 'none';
     showPianoRoll(true);
