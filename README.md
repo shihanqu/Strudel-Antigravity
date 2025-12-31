@@ -1,8 +1,6 @@
 # Strudel Antigravity 🎹✨
 
-A powerful VS Code extension for live-coding music with [Strudel](https://strudel.cc), the JavaScript port of TidalCycles.
-
-> **Fork Notice**: This is a significantly enhanced fork of [strudel-vscode](https://codeberg.org/cmillsdev/strudel-vscode.git) by cmillsdev. See [What's New](#whats-new-in-this-fork) for details.
+A VS Code extension for live-coding music with [Strudel](https://strudel.cc), the JavaScript port of TidalCycles.
 
 ![Strudel Antigravity Demo](images/demo.gif)
 
@@ -127,7 +125,7 @@ npx vsce package
 
 ## Credits
 
-- **Original Extension**: [cmillsdev/strudel-vscode](https://codeberg.org/cmillsdev/strudel-vscode)
+- **StrudelVS**: This is a significantly modified fork of [strudel-vscode](https://codeberg.org/cmillsdev/strudel-vscode.git) by cmillsdev. See [What's New](#whats-new-in-this-fork) for details.
 - **Strudel**: [strudel.cc](https://strudel.cc) by Felix Roos and contributors
 - **TidalCycles**: [tidalcycles.org](https://tidalcycles.org) by Alex McLean
 
