@@ -1,0 +1,98 @@
+button {
+    cursor: pointer;
+    margin-top: 0.8em;
+    padding-top: 0.1em;
+    line-height: 1.75em;
+    color: var(--vscode-button-foreground);
+    background-color: var(--vscode-button-background);
+    border-style: solid;
+    border-color: var(--vscode-button-border);
+    border-radius: 2px;
+    border-width: 1px;
+}
+
+button:hover {
+    background-color: var(--vscode-button-hoverBackground);
+}
+
+.strudel-layout {
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.status-text {
+    max-width: 80%;
+    text-align: center;
+    color: var(--vscode-foreground);
+}
+
+.io-toggle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.toggle-switch {
+    position: relative;
+    width: 56px;
+    height: 28px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background-color: var(--vscode-editorHoverWidget-background, #555555);
+    border-radius: 999px;
+    transition: background-color 0.2s ease;
+}
+
+.slider::before {
+    content: "";
+    position: absolute;
+    height: 22px;
+    width: 22px;
+    left: 3px;
+    top: 3px;
+    background-color: var(--vscode-editor-background, #1e1e1e);
+    border-radius: 50%;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.toggle-switch input:checked + .slider {
+    background-color: var(--vscode-button-background);
+}
+
+.toggle-switch input:checked + .slider::before {
+    transform: translateX(28px);
+    background-color: var(--vscode-button-foreground);
+}
+
+.toggle-switch input:disabled + .slider {
+    opacity: 0.6;
+    cursor: progress;
+}
+
+.toggle-switch input:indeterminate + .slider {
+    background-color: var(--vscode-inputValidation-infoBorder, #5a9bd8);
+}
+
+.toggle-label {
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--vscode-foreground);
+}

@@ -1,0 +1,124 @@
+{
+  "name": "strudel-repl",
+  "displayName": "Strudel REPL",
+  "description": "Live coding music with Strudel in VS Code",
+  "version": "1.0.0",
+  "private": true,
+  "publisher": "antigravity-user",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "icon": "assets/strudel_icon_256.png",
+  "main": "./dist/extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "strudel",
+        "extensions": [
+          ".str",
+          ".strudel"
+        ],
+        "aliases": [
+          "Strudel",
+          "strudel"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "strudel",
+        "scopeName": "source.js.strudel",
+        "path": "./syntaxes/strudel.tmLanguage.json"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "strudel.play",
+          "group": "navigation",
+          "when": "resourceLangId == strudel && !strudel.isPlaying"
+        },
+        {
+          "command": "strudel.update",
+          "group": "navigation",
+          "when": "resourceLangId == strudel && strudel.isPlaying"
+        },
+        {
+          "command": "strudel.stop",
+          "group": "navigation",
+          "when": "resourceLangId == strudel && strudel.isPlaying"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "strudel.play",
+        "title": "Strudel: Play",
+        "icon": "$(play)"
+      },
+      {
+        "command": "strudel.update",
+        "title": "Strudel: Update",
+        "icon": "$(debug-restart)"
+      },
+      {
+        "command": "strudel.play_selection",
+        "title": "Strudel: Play Selection"
+      },
+      {
+        "command": "strudel.stop",
+        "title": "Strudel: Stop",
+        "icon": "$(debug-stop)"
+      },
+      {
+        "command": "strudel.openPanel",
+        "title": "Strudel: Open REPL Panel"
+      },
+      {
+        "command": "strudel.toggleRecording",
+        "title": "Strudel: Toggle Recording",
+        "icon": "$(record)"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "strudel.play",
+        "key": "ctrl+enter",
+        "mac": "cmd+enter",
+        "when": "editorTextFocus && resourceLangId == strudel"
+      },
+      {
+        "command": "strudel.play_selection",
+        "key": "shift+ctrl+enter",
+        "mac": "shift+cmd+enter",
+        "when": "editorTextFocus && resourceLangId == strudel"
+      },
+      {
+        "command": "strudel.stop",
+        "key": "ctrl+.",
+        "mac": "cmd+."
+      }
+    ]
+  },
+  "scripts": {
+    "build": "esbuild ./src/extension.ts --bundle --outfile=./dist/extension.js --external:vscode --format=cjs --platform=node --target=es2021"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.90.0",
+    "esbuild": "^0.18.2",
+    "typescript": "^5.1.3"
+  },
+  "dependencies": {
+    "@strudel/core": "^1.2.5",
+    "@strudel/mini": "^1.2.5",
+    "@strudel/webaudio": "^1.2.6",
+    "@strudel/tonal": "^1.2.5",
+    "@strudel/soundfonts": "^1.2.5",
+    "@strudel/transpiler": "^1.2.5",
+    "@strudel/csound": "^1.2.6"
+  }
+}

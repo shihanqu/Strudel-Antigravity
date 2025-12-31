@@ -1,0 +1,176 @@
+// @title (What?)AKE
+// @by REZN + u24b6
+
+//setcpm(82)
+
+// --- The RIFFS ---
+const riff = note("[a2 b2] b1 b2 f2@2 b2 f2 e2@2 b2 e2 d2@2 a2 d2 a2").slow(4)._pianoroll()
+const riff_b = note(cat(riff, "[a2 b2] b1 b2 f2@2 b2 f2 e2@2 ~ ~")).slow(4)
+const riff12 = note("[a2 b2] b1 b2 f2@2 b2 f2 e2@2 b2 e2 d2@2 a2 d2 a2".sub(12))
+const riff36 = note("[a2 b2] b1 b2 f2@2 b2 f2 e2@2 b2 e2 d2@2 a2 d2 a2".sub(36))
+
+
+// ==== PATTERNS ====
+let drums =
+  s("bd bd, [cr ~]*2, [hh]*32, [rim]*16, [sd]*4")
+    .bank("RolandTR808")
+    .slow("<2 4 2 8>/2")
+    .gain(0.7)
+    .phaser(4)
+    ._scope()
+    ._pianoroll()
+let intro_drums =
+  s("bd bd sd bd, [cr ~]*2")
+  .gain(.40)
+  ._pianoroll()
+
+let guitar = riff.s("sawtooth").lpf("800").gain(.8)
+let bass = riff.s("square").lpf("<4000 5000 2000 5000>").gain(.3).phaser(6).phd(.5)
+let vphone = riff.s(randcat("gm_vibraphone", "~")).trem(69).adsr(".0420:.69:.69:.420").gain(.3)
+
+// ==== DROP ====
+const kickPattern = "<x [~ x]>"
+const snarePattern = "<~ x>"
+let dropBeat = stack(
+  stack(s("bd").n(1).hpf(1800).dec(.02), s("bd").n(4).lpf(320).dec(.22)).struct(kickPattern).distort("1.4:.8"),
+  stack(
+    s("sd").bank("ace").n(1).distort("1.6:.8").hpf(300),
+    s("cp").bank("tr909").n(4).distort("1.6:.4").speed(1.4).hpf(600).room("1/3").roomsize(0.5).roomfade(3)
+  ).struct(snarePattern).lastOf(4, x => x.delay("1/6").delayfb("0.12").delayspeed("1/12"))
+).duck("2").duckatt(.12).duckdepth(1).postgain(.9)
+
+const WUB_MASK = "<1 0 1 0 1 0 0 0 1 1 0 0 1 0 1 0>"
+const RATE = 8
+
+let sub = stack(
+  riff36.s("square").gain(.8),
+  riff36.s("sine").gain(.2)
+)
+  .hpf(28)
+  .lpf(110)
+  .att(.01)
+  .sus(0)
+  .dec(.35)
+  .distort("2:.15")
+  .postgain(.6)
+
+let midCore = stack(
+  riff12.s("saw").pan(-0.15),
+  riff12.s("square").pan(0.15)
+)
+  .adsr(".02:.1:0:.04")
+  .lpf(6000)
+  .hpf(1200)
+  .lfo("cutoff", 8, 140, 3600)
+  .vowel("<a o i e u e o a>")
+  .crush(4)
+  .distort("4:.24")
+  .phaser(10)
+  .delay("1/5")
+  .delayspeed("1/12")
+  .orbit(2)
+  .postgain(.6)
+  .mask(WUB_MASK)
+
+let growl = riff
+  .s("square")
+  .mask("<1 1 0 1 0 1 0 0 1 0 1 0 1 0 0 1>")
+  .adsr(".01:.08:0:.03")
+  .lpf(1800)
+  .hpf(90)
+  .fm(2,140)
+  .ring(0.5)
+  .crush(5)
+  .distort("4:.28")
+  .phaser(6)
+  .postgain(.45)
+
+let stupidWubs =
+  stack(
+    sub,
+    midCore, 
+    growl)
+    .seg(4)
+    .dec(.35)
+    .midibend("<0 0 0 0 12 -12 0 0>")
+    .duck("2")
+    .duckatt(.08)
+    .duckdepth(1.2)
+
+const YOI_MASK = "<1 1 0 1 0 1 0 0 1 0 1 0 1 0 0 1>"
+let yoiLead = stack(
+  riff.s("saw"),
+  riff.s("square")
+)
+  .mask(YOI_MASK)
+  .adsr(".01:.09:0:.03")
+  .hpf(1400)
+  .lpf(9000)
+  .lfo("cutoff", 8, 500, 5000)
+  .vowel("<a o i e i e o a>")
+  .crush(3)
+  .distort("3:.28")
+  .phaser(8)
+  .pan(0)
+  .postgain(.55)
+
+let reeseFizz = stack(
+  riff.s("saw").gain(.7),
+  riff.s("saw").gain(.7)
+)
+  .adsr(".02:.12:0:.06")
+  .hpf(1800)
+  .lpf(7000)
+  .crush(4)
+  .distort("2.5:.2")
+  .phaser(6)
+  .orbit(2)
+  .postgain(.35)
+  .duck("2")
+  .duckatt(.05)
+  .duckdepth(.9)
+
+let screech = note("<d5 ~ d#5 ~ f5 ~ ~ ~>").s("sawtooth").adsr(".001:.06:0:.02").hpf(2200).lpf(10000).trem(32).midibend("<0 7 12 0>").crush(2).distort("3.2:.25").mask("<1 0 1 0 0 0 0 0>").postgain(.3)
+
+let hats = stack(
+  s("hh").bank("tr909").struct("~ x").fast(4).distort("1.8:.2"),
+  s("hh").bank("tr808").struct("x ~").fast(8).distort("1.6:.1")
+).hpf(6000).postgain(.65).duck("2").duckatt(.04).duckdepth(.8)
+
+let noiseShots = s("white").hpf(5500).lpf(10000).adsr(".001:.05:0:.02").trem(24).mask("<0 0 0 1>").postgain(.28).duck("2")._scope()
+
+let riser = s("white").trem(16).lpf(6000).postgain(.25).slow(2)
+let snareRoll = s("sd").bank("ace").struct("x ~").fast(8).gain(.35).hpf(800)
+
+let gasp = 
+  stack(dropBeat, 
+        stupidWubs,
+        yoiLead,
+        reeseFizz,
+        hats, 
+        noiseShots, 
+        screech
+    )
+  .mask("<x x x x x x x 0>")
+let impact = stack(
+  s("bd").n(4).lpf(200).distort("2:.2"),
+  s("cr").bank("tr808").gain(.9),
+  s("white").hpf(3000).adsr(".001:.2:0:.2").postgain(.35)
+)
+
+// --- Arrangements ---
+let intro = stack(drums, guitar, bass, vphone)
+let normal_intro = stack(guitar, intro_drums, bass).slow(2)
+let build = stack(drums.mask("<x!7 ~>").slow(2).gain(.75), guitar.hpf(400).gain(.22), bass.hpf(120).gain(.2), riser, snareRoll)
+let dropV2 = stack(dropBeat, stupidWubs, yoiLead, reeseFizz, hats, screech, noiseShots)
+
+arrange(
+  [16, normal_intro],
+  [8, normal_intro.fast(2)],
+  [16, intro],
+  [4, build],
+  [1, gasp],
+  [1, impact],
+  [16, dropV2]
+)
+._pianoroll()

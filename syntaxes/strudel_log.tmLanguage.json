@@ -1,0 +1,21 @@
+{
+    "scopeName": "text.strudel.log",
+    "fileTypes": ["log"],
+    "name": "Strudel log",
+    "patterns": [{
+        "match": "^\\[cyclist\\].*$",
+        "name": "markup.changed"
+    }, {
+        "match": "^\\[eval\\].*$",
+        "name": "markup.inserted"
+    }, {
+        "match": "^\\[sampler\\].*$",
+        "name": "markup.deleted"
+    }, {
+        "match": "^\\[webaudio\\].*$",
+        "name": "string"
+    }, {
+        "match": "^\\[query\\].*$",
+        "name": "comment"
+    }]
+}

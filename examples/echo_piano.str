@@ -1,0 +1,13 @@
+// "Echo piano"
+// @license CC BY-NC-SA 4.0 https://creativecommons.org/licenses/by-nc-sa/4.0/
+// @by Felix Roos
+
+"<0 2 [4 6](3,4,2) 3*2>"
+.scale('D minor')
+.color('salmon')
+.off(1/4, x=>x.scaleTranspose(2).color('green'))
+.off(1/2, x=>x.scaleTranspose(6).color('steelblue'))
+.legato(.5)
+.echo(4, 1/8, .5)
+.note().piano()
+.pianoroll()

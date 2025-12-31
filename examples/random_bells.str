@@ -1,0 +1,23 @@
+// "Random bells"
+// @license CC BY-NC-SA 4.0 https://creativecommons.org/licenses/by-nc-sa/4.0/
+// @by Felix Roos
+
+samples({
+  bell: { c6: 'https://freesound.org/data/previews/411/411089_5121236-lq.mp3' },
+  bass: { d2: 'https://freesound.org/data/previews/608/608286_13074022-lq.mp3' }
+})
+
+stack(
+  // bells
+  "0".euclidLegato(3,8)
+  .echo(3, 1/16, .5)
+  .add(rand.range(0,12))
+  .velocity(rand.range(.5,1))
+  .legato(rand.range(.4,3))
+  .scale(cat('D minor pentatonic')).note()
+  .s('bell').gain(.6).delay(.2).delaytime(1/3).delayfeedback(.8),
+  // bass
+  "<D2 A2 G2 F2>".euclidLegatoRot(6,8,4).note().s('bass').clip(1).gain(.8)
+)
+  .slow(6)
+  .pianoroll({minMidi:20,maxMidi:120,background:'transparent'})

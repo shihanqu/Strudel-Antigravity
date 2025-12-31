@@ -1,0 +1,27 @@
+{
+    "name": "Strudel",
+    "scopeName": "source.js.strudel",
+    "fileTypes": [".strudel", ".str", "sdt"],
+    "patterns": [
+        {
+            "match": "(\\/\\*([\\s\\S]*?)\\*\\/)|(\\/\\/(.*)$)",
+            "name": "comment"
+        },
+        {
+            "match": "(\"([\\s\\S]*?)\")|('([\\s\\S]*?)')",
+            "name": "string"
+        },
+        {
+            "match": "\\b[+-]?([0-9]*[.])?[0-9]+\\b",
+            "name": "constant.numeric"
+        },
+        {
+            "match": "\\b(abstract|arguments|await|boolean|break|byte|case|catch|char|class|const|continue|debugger|default|delete|do|double|else|enum|eval|export|extends|false|final|finally|float|for|function|goto|if|implements|import|in|instanceof|int|interface|let|long|native|new|null|package|private|protected|public|return|short|static|super|switch|synchronized|this|throw|throws|transient|true|try|typeof|var|void|volatile|while|with|yield)\\b",
+            "name": "keyword"
+        },
+        {
+            "match": "\\b(s|sound|source|getSource|n|value|note|accelerate|amount|gain|amp|attack|bank|decay|time|sustain|release|bpf|frequency|bpq|q|begin|end|length|loop|times|legato|duration|crush|depth|coarse|factor|channel|cut|group|lpf|hpf|hpq|lpq|djf|cutoff|delay|level|delayfeedback|feedback|delaytime|seconds|detune|dry|freq|leslie|wet|lrate|rate|lsize|meters|octave|orbit|number|pan|room|roomsize|size|shape|distortion|speed|unit|squiz|vowel|clip|active|drawLine|pattern|chars|euclid|pulses|steps|euclidRot|rotation|_euclidRot|euclidLegato|Pattern|query|withValue|func|fmap|appWhole|whole_func|appBoth|pat_val|appLeft|appRight|queryArc|splitQueries|withQuerySpan|withQueryTime|withHapSpan|withHapTime|withHaps|withHap|setContext|context|withContext|stripContext|withLocation|start|filterHaps|hap_test|filterValues|value_test|removeUndefineds|onsetsOnly|discreteOnly|defragmentHaps|firstCycle|with_context|firstCycleValues|showFirstCycle|sortHapsByPart|layer|superimpose|stack|seq|cat|arpWith|arp|add|sub|mul|div|struct|mask|reset|restart|silence|pure|slowcat|slowcatPrime|items|timeCat|arrange|sequence|polymeterSteps|sequences|polymeter|register|name|round|floor|ceil|toBipolar|fromBipolar|range|rangex|range2|compress|fastGap|focus|ply|fast|hurry|slow|inside|outside|lastOf|firstOf|every|apply|cpm|early|cycles|late|zoom|linger|fraction|segment|segments|invert|when|binary_pat|off|brak|rev|pressBy|press|hush|palindrome|juxBy|jux|echoWith|echo|stut|iter|iterBack|chunk|chunkBack|ribbon|offset|velocity|chop|loopAt|loopAtCps|saw|sine|cosine|square|tri|run|rand|rand2|irand|chooseWith|pat|xs|chooseInWith|choose|choose2|chooseCycles|perlin|degradeBy|degrade|undegradeBy|sometimesBy|probability|function|sometimes|someCyclesBy|someCycles|often|rarely|almostNever|almostAlways|never|always|getFreq|midi2note|csoundm|osc|transpose|scaleTranspose|scale|addVoicings|dictionary|voicings|rootNotes|samples|webdirt)\\b",
+            "name": "entity.name.function"
+        }
+    ]
+}

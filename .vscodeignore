@@ -1,0 +1,11 @@
+.vscode/**
+src/**
+.gitignore
+**/tsconfig.json
+**/.eslintrc.json
+**/*.map
+**/*.ts
+utils
+sounds/**
+static/strudel.js
+node_modules/**
