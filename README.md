@@ -2,7 +2,7 @@
 
 A VS Code extension for live-coding music with [Strudel](https://strudel.cc), the JavaScript port of TidalCycles.
 
-<video src="Strudel Demo.mp4" controls width="100%"></video>
+https://github.com/shihanqu/Strudel-Antigravity/raw/main/Strudel%20Demo.mp4
 
 
 ## Features
