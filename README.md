@@ -131,7 +131,3 @@ npx vsce package
 ## License
 
 AGPL-3.0-or-later — See [LICENSE](LICENSE) for details.
-
----
-
-Made with 💜 by the Antigravity team
