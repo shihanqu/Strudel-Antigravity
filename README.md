@@ -1,7 +1,9 @@
 # Strudel Antigravity 🎹✨
 
 A VS Code extension for live-coding music with [Strudel](https://strudel.cc), the JavaScript port of TidalCycles.
-![Strudel Antigravity Demo](images/demo.gif)
+
+<video src="Strudel Demo.mp4" controls width="100%"></video>
+
 
 ## Features
 
@@ -15,14 +17,18 @@ A VS Code extension for live-coding music with [Strudel](https://strudel.cc), th
 
 ## Installation
 
-### Download Pre-built VSIX (Recommended)
+Choose **one** of these options:
+
+### Option 1: Download Pre-built VSIX (Recommended)
 1. Download the latest `.vsix` from [**Releases**](https://github.com/shihanqu/Strudel-Antigravity/releases)
 2. Install it:
 ```bash
 code --install-extension strudel-repl-v40.vsix --force
 ```
+That's it! You're ready to go.
 
-### Build from Source
+### Option 2: Build from Source (For Developers)
+Only needed if you want to modify the extension:
 ```bash
 git clone https://github.com/shihanqu/Strudel-Antigravity.git
 cd Strudel-Antigravity
@@ -31,6 +37,7 @@ npm run build:all
 npx vsce package -o strudel-repl.vsix
 code --install-extension strudel-repl.vsix --force
 ```
+
 
 ## Quick Start
 
