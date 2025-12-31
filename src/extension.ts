@@ -225,6 +225,29 @@ export function activate(context: vscode.ExtensionContext): void {
       white-space: pre-wrap;
       color: #8b949e;
     }
+    #sliders {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 10px;
+    }
+    .slider-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: rgba(255,255,255,0.05);
+        padding: 8px;
+        border-radius: 4px;
+        font-size: 12px;
+    }
+    .slider-wrapper input {
+        flex-grow: 1;
+    }
+    .slider-value {
+        min-width: 40px;
+        text-align: right;
+    }
   </style>
 </head>
 <body>
@@ -245,6 +268,8 @@ export function activate(context: vscode.ExtensionContext): void {
       <button class="btn stop" id="stop-btn"><span>⏹️</span> Stop</button>
       <button class="btn record" id="record-btn"><span>⏺️</span> Record</button>
     </div>
+
+    <div id="sliders"></div>
 
     <p class="status-text" id="strudel-info">Connect audio and press Play to start.</p>
     
