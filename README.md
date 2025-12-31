@@ -15,9 +15,11 @@ A VS Code extension for live-coding music with [Strudel](https://strudel.cc), th
 
 ## Installation
 
-### From VSIX (Recommended)
+### Download Pre-built VSIX (Recommended)
+1. Download the latest `.vsix` from [**Releases**](https://github.com/shihanqu/Strudel-Antigravity/releases)
+2. Install it:
 ```bash
-code --install-extension strudel-repl.vsix --force
+code --install-extension strudel-repl-v40.vsix --force
 ```
 
 ### Build from Source
